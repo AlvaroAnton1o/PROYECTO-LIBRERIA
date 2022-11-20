@@ -1,4 +1,5 @@
 from flask import jsonify
+from matplotlib.font_manager import json_load
 from pymongo import MongoClient
 import json
 
@@ -16,18 +17,18 @@ def connection (dbs,collection_name):
     
     
 
-def saveProducto(product):
-    collection.insert_one(product)
+def save(data):
+    collection.insert_one(data)
     
     
 def delete():
-    collection.delete_many({})\
+    collection.delete_many({})
 
 def show():
     data = collection.find({})
     return data
 
-def showby(value,val):
+def getUser(value,val):
     data = collection.find_one({value:val})
     return data
 
@@ -35,15 +36,18 @@ def showby2(value,val):
     data = collection.find({value:val})
     return data
 
-def getData():
-    data = collection.find()
-    name = collection.find({},{"name":1,"_id":0})
-    cantidad = collection.find({},{"cantidad":1,"_id":0})
-    precio = collection.find_one({},{"precio":1,"_id":0})
-    # data = [name,cantidad,precio]
+def getDataUser(userValue):
+    # data = collection.find()
+    data = collection.find({},{userValue:1,"_id":0})
+
     return data
 
 
 
 def updateOne(value, val):
     collection.update_one(value,val)
+
+connection('Libreria','Usuarios')
+correo = getUser('correo','adolfo@gmail.com')
+
+print(correo['contra'])
