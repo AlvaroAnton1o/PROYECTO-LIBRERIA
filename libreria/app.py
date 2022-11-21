@@ -54,8 +54,38 @@ def signIn():
     correo = request.form['txtCorreo']
     contra = request.form['txtContra']
     dbMongo.connection('Libreria','Usuarios')
+    #Obtenemos los datos de contra
     contraDB = dbMongo.getUser('correo',correo)
-    contrauser = contraDB['contra']
+    #Obtenemos los datos de correo
+    correoDB = dbMongo.getUser('correo', correo)
+    
+    if contraDB != None and contraDB != None:    
+        contrauser = contraDB['contra']
+        correouser = correoDB['correo']
+        if contra != contrauser or correo != correouser:
+            flash('Contraseña invalida')
+            return redirect(url_for('inicio'))
+        else:
+            flash('Bienvenido a libreria Fenix')
+            return home()
+    else:
+        flash('el usuario no existe')
+        return redirect(url_for('inicio'))
+    
+    
+    # contrauser = contraDB['contra']
+    
+    #Obtenemos los datos de correo
+    # correouser = correoDB['correo']
+    
+    #Validamos los datos de acceoso
+
+    # if contra != contrauser or correo != correouser :
+    #     flash('Contraseña o Correo invalido')
+    #     return redirect(url_for('inicio'))
+    # else:
+    #     flash('Bienvenido a libreria Fenix')
+    #     return home()
         
     return 
 

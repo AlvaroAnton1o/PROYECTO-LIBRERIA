@@ -50,4 +50,4 @@ def updateOne(value, val):
 connection('Libreria','Usuarios')
 correo = getUser('correo','adolfo@gmail.com')
 
-print(correo['contra'])
+print(correo)
